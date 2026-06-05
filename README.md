@@ -65,6 +65,13 @@ Example output:
 🎭 Genres: Science Fiction, Action, Adventure
 🗒️ Summary: In the 22nd century...
 ```
+## What I Learned
+
+- Working with REST APIs
+- Handling asynchronous JavaScript
+- Command-line argument parsing
+- Environment variables
+- Interactive CLI applications
 ## License
 
 MIT
