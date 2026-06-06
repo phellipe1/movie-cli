@@ -14,5 +14,8 @@
     "@inquirer/prompts": "^8.5.2",
     "dotenv": "^17.4.2",
     "inquirer": "^8.2.7"
+  },
+  "bin": {
+    "mov-cli": "./index.js"
   }
 }
