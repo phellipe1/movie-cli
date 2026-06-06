@@ -1,77 +1,130 @@
 # Movie CLI
 
-A command-line application built with Node.js that allows users to search for movies using The Movie Database (TMDb) API.
+A command-line application built with Node.js that allows you to search for movies using The Movie Database (TMDb) API.
 
 ## Features
 
-- Search movies by title
-- Interactive movie selection using Inquirer
-- Display movie details:
-  - Title
-  - Release date
-  - Rating
-  - Runtime
-  - Genres
-  - Overview
-- Environment variable support with dotenv
+* Search movies by title
+* Interactive movie selection
+* View movie details
 
-## Technologies
-
-- Node.js
-- TMDb API
-- Inquirer
-- Dotenv
+  * Title
+  * Release date
+  * Rating
+  * Runtime
+  * Genres
+  * Director
+  * Main cast
+  * Overview
+* Watch movie trailers using mpv
+* Display streaming providers available in Brazil
+* Global CLI command support (`mov-cli`)
 
 ## Installation
 
-Clone the repository:
+### Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/phellipe1/movie-cli.git
 cd movie-cli
 ```
 
-Install dependencies:
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-Create a `.env` file:
+### Configure TMDb API Key
+
+Create a `.env` file in the project root:
 
 ```env
 TMDB_API_KEY=your_api_key_here
 ```
 
-## Usage
+You can get an API key from:
 
-Search for a movie:
+https://www.themoviedb.org/settings/api
+
+### Run locally
 
 ```bash
-node index.js avatar
+node index.js batman
 ```
 
-Example output:
+## Global Installation
 
-```txt
-✔ Choose a movie: Avatar (2009-12-16)
+Inside the project folder:
 
-=== Details ===
-
-🎬 Title: Avatar
-📅 Release date: 2009-12-16
-⭐ Score: 7.6/10
-⏱ Runtime: 2h 42min
-🎭 Genres: Science Fiction, Action, Adventure
-🗒️ Summary: In the 22nd century...
+```bash
+npm link
 ```
-## What I Learned
 
-- Working with REST APIs
-- Handling asynchronous JavaScript
-- Command-line argument parsing
-- Environment variables
-- Interactive CLI applications
+After that, you can run:
+
+```bash
+mov-cli batman
+```
+
+from anywhere in your terminal.
+
+## Trailer Support
+
+Movie trailers are played using mpv.
+
+Install mpv before using the trailer feature:
+
+### Arch Linux
+
+```bash
+sudo pacman -S mpv
+```
+
+### Debian / Ubuntu
+
+```bash
+sudo apt install mpv
+```
+
+## Example
+
+```bash
+mov-cli batman
+```
+
+Output:
+
+```text
+🎬 Title: Batman Begins
+📅 Release date: 2005-06-10
+⭐ Score: 7.7/10
+⏱ Runtime: 2h 20min
+🎭 Genres: Drama, Crime, Action
+🎬 Director: Christopher Nolan
+🎭 Cast: Christian Bale, Michael Caine, Liam Neeson, Katie Holmes, Gary Oldman
+📺 Available on:
+   • Netflix
+   • HBO Max
+🗒 Summary: Driven by tragedy, billionaire Bruce Wayne...
+```
+
+## Technologies
+
+* Node.js
+* TMDb API
+* Inquirer
+* dotenv
+* mpv
+
+## Future Improvements
+
+* Favorites
+* Search history
+* Search by actor
+* Search by director
+* TV series support
+
 ## License
 
 MIT
