@@ -29,6 +29,20 @@ async function getMovieVideos(id) {
     const data = await response.json();
     return data.results || [];
 }
+async function getMovieCredits(id) {
+    const url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    return data;
+}
+async function getWatchProviders(id) {
+    const url =
+        `https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=${apiKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.results.BR;
+}
 function formatRuntime(min){
     const hours = Math.floor( min / 60);
     const minutes = min % 60;
@@ -73,7 +87,12 @@ async function main() {
     });
     if(action === "details"){
         const movieData = await getMovieDetails(selectedMovie);
-    
+        const credits = await getMovieCredits(selectedMovie);
+        const director = credits.crew.find(
+            person => person.job === "Director"
+        );
+        const cast = credits.cast.slice(0, 5);
+        const providers = await getWatchProviders(selectedMovie);
         console.log("\n=== Details ===\n");
         console.log("🎬 Title:", movieData.title);
         console.log("📅 Release date:", movieData.release_date);
@@ -82,8 +101,28 @@ async function main() {
         console.log(
             "🎭 Genres:", movieData.genres.map(g => g.name).join(", ")
         );
+        console.log(
+            "🎬 Director:",
+            director ? director.name : "Unknown"
+        )
+        console.log(
+            "🎭 Cast:",
+            cast.map(actor => actor.name).join(", ")
+        );
         console.log("🗒️ Summary:", movieData.overview || "No summary available.");
         console.log("\n");
+        console.log("📺 Available on:");
+        if(!providers){
+            console.log("📺 No providers available in Brazil.");
+            return;
+        } 
+        if (!providers.flatrate) {
+            console.log("📺 No subscription providers found.");
+            return;
+        }
+        providers.flatrate.forEach(provider => {
+            console.log(`   • ${provider.provider_name}`);
+        });
 
     }
     if(action === "trailer"){
